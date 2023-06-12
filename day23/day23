@@ -1,0 +1,62 @@
+day23
+
+# 외부 라이브러리 사용
+	- 롬복 lombok.jar
+		- 에노테이션으로 자주 작성되는 코드를 만들어줍니다.
+			주로 데이터를 저장하는 클래스에 필요한 코드입니다.
+			● getter, setter
+			● toString
+			● 커스텀 생성자 등등...
+		- 생성된 코드 확인은 이클립스의 outline 창에서 합니다
+		- 외부 라이브러리 사용방법
+			● lombok.jar 을 다운로드 ( https://projectlombok.org/download )
+			● 프로젝트의 configure build path 실행
+			● Libraries 탭에서 add external jar
+		- 참고 : jar 은 압축 파일형식. 자바 프로그램을 실행하기 위한 클래스들과 리소스를 포함합니다.
+				실행할때는 명령어 'java -jar lombok.jar' 를 cmd 에서 실행
+		※ path 설정된 폴더(경로)의 명령어들은 어느 위치의 폴더에서나 실행할 수 있음
+		- 롬복에서는 롬복을 이클립스에 설치가 필요합니다. (이유는 이클립스 IDE 코드 생성을 해야하기 때문)
+			● 명령어 java -jar lombok.jar 을 cmd 에서 실행
+			
+-------------------------------------------------------------------------------------------------------
+
+# Exception		(day22 텍스트파일 참고)
+
+- UnChecked Exception : java.lang.RuntimeException
+	● NullPointerException
+	
+- 모든 예외(Exception) 처리
+	● try - catch
+	● throws 예외A , 예외B, .... : 예외처리를 떠넘기기(위임)
+※ 개발자가 잘못된 입력 또는 실행중 오류에 대한 처리 방법으로,
+	임의로 Exception을 만들 수도 있습니다. ▶ throw 명령
+
+★ Java17 Document ( https://docs.oracle.com/en/java/javase/17/docs/api/ ) 에서 모든 명령어를 볼 수 있음 ★
+
+------------------------------------------------------------------------------------------------------
+
+[checked Exception 과 Unchecked Exception 차이]
+자바에서 예외(Exception)는 두 가지 종류가 있다. 이들 예외는 예외 처리에 대한 규칙과 동작에 차이가 있다.
+
+[1] Checked Exception :
+- Checked exception은 컴파일 시에 확인되고 처리해야 하는 예외다.
+- Checked exception은 RuntimeException 클래스를 상속하지 않은 예외 클래스들을 포함한다.
+- Checked exception이 발생할 가능성이 있는 메소드는 예외를 선언(throws)하거나 예외를 처리하는 코드를 작성해야 한다.
+- 개발자가 예외를 명시적으로 처리해야 하므로 예외 상황에 대한 명확한 대응을 할 수 있다.
+- 예시 : IOException , SQLException , ...등등
+★ checked exception은 예외 처리를 필요로 하며, 예외 상황에 대한 명확한 대응을 할 수 있도록 한다.
+
+[2] Unchecked Exception :
+- Unchecked exception은 컴파일 시에 확인되지 않는 예외다.
+- Unchecked exception은 RuntimeException 클래스를 상속한 예외 클래스들을 포함한다.
+- Unchecked exception은 개발자가 예외 처리를 강제하지 않는다. 따라서 예외 처리 코드가 필요하지 않다.
+- 프로그래머의 실수나 예상치 못한 상황에 의해 발생하는 예외다.
+- 예시 : NullPointerException , ArrayIndexOutOfBoundsException , ...등등
+
+★ Unchecked exception은 주로 프로그래머의 실수나 예상치 못한 상황에서 발생하는 예외를 나타내며,
+	예외 처리를 강제하지 않기 때문에 예외 처리 코드를 작성하는 번거로움을 줄일 수 있다.
+
+	
+	
+	
+	
