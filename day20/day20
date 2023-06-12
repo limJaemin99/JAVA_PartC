@@ -1,0 +1,79 @@
+day20
+
+
+- CharSequence 인터페이스 구현 클래스
+	● String , StringBuffer
+- 문자열 분리
+	● String 클래스의 split 인스턴스메소드
+	● StringTokenizer. 구분기호를 정규식 형식
+- 함수형 인터페이스
+- ArrayList 복습
+
+
+
+-------------------------------------------------------------------------------------------------------------
+
+[charSequence 설명]
+
+CharSequence는 Java에서 문자열의 일반화된 인터페이스이다.
+CharSequence 인터페이스는 문자열을 읽을 수 있는 시퀀스(sequence)로 정의되어 있으며,
+String, StringBuffer, StringBuilder 등의 클래스가 이 인터페이스를 구현하고 있다.
+
+CharSequence 인터페이스는 문자열을 다루는 일련의 작업을 수행하기 위한 메서드를 제공한다.
+주요 메서드로는 문자열의 길이를 반환하는 length(),
+특정 위치의 문자를 반환하는 charAt(int index),
+문자열의 부분 문자열을 추출하는 subSequence(int start, int end),
+문자열을 비교하는 equals(Object obj) 등이 있다.
+
+CharSequence를 사용함으로써 다양한 문자열 클래스들을 동일한 방식으로 다룰 수 있다.
+예를 들어, CharSequence 인터페이스를 받는 메서드는 String이나 StringBuilder 등 어떤 CharSequence 구현체든지 받을 수 있다.
+★★이는 코드의 유연성과 재사용성을 높여준다★★
+
+또한, CharSequence 인터페이스는 문자열을 변경할 수 없는(read-only) 형태로 제공되기 때문에,문자열을 보다 안전하게 다룰 수 있다.
+변경이 필요한 경우에는 StringBuilder 또는 StringBuffer와 같은 가변성(mutable)을 지닌 클래스로 변환하여 작업할 수 있다.
+
+▶ 결론 : CharSequence는 Java에서 문자열을 일반화하여 처리하는 인터페이스로,
+다양한 문자열 클래스의 공통 기능을 활용하고자 할 때 유용하게 사용된다.
+
+-------------------------------------------------------------------------------------------------------------
+
+[charSequence 언제 사용하는지?]
+
+1. 메서드 인자로 문자열을 받는 경우
+메서드의 매개변수 타입을 CharSequence로 지정함으로써, String, StringBuilder, StringBuffer 등 어떤 CharSequence 구현체든지 받을 수 있다.
+이는 메서드를 더 유연하게 만들어 다양한 문자열을 처리할 수 있도록 한다.
+
+2. 문자열의 읽기 작업을 수행할 때
+CharSequence는 문자열을 읽을 수 있는 인터페이스이므로, 문자열을 변경하지 않고 읽는 작업을 수행할 때 유용하다.
+예를 들어, 문자열의 길이를 확인하거나 특정 위치의 문자를 가져오는 작업에서 활용할 수 있다.
+
+3. 문자열의 일부를 추출하여 사용할 때
+CharSequence의 subSequence() 메서드를 사용하여 문자열의 일부를 추출할 수 있다.
+이는 문자열을 잘라내어 필요한 부분만 사용할 때 유용하다.
+
+4. 다른 문자열 클래스로 변환할 때
+CharSequence는 변경 불가능한(read-only) 형태로 제공되기 때문에,
+필요에 따라 StringBuilder나 StringBuffer와 같은 가변성을 지닌 클래스로 변환하여 작업할 수 있다.
+CharSequence를 사용하면 다양한 문자열 클래스들을 일관된 방식으로 다룰 수 있다.
+
+▶ 결론 : CharSequence는 문자열을 일반화하여 처리하는 유연성과 안전성을 제공하므로, 다양한 상황에서 활용될 수 있다.
+
+-------------------------------------------------------------------------------------------------------------
+
+[charSequence 을 String 으로 변환하여 작업할 수 없나?]
+
+CharSequence는 인터페이스이므로 직접적으로 String으로 변환할 수는 없다.
+그러나 CharSequence를 구현한 클래스 중에는 String으로 변환할 수 있는 메서드를 제공하는 경우가 많다.
+
+예를 들어, CharSequence를 구현한 StringBuilder 클래스의 경우, toString() 메서드를 사용하여 String으로 변환할 수 있다.
+toString() 메서드는 StringBuilder 객체에 저장된 문자열을 새로운 String 객체로 반환한다.
+
+ex)	CharSequence chSeq = new StringBuilder("Hello");
+	String str = chSeq.toString();
+
+마찬가지로, CharSequence를 구현한 다른 클래스들도 각각의 방식으로 String으로 변환할 수 있는 메서드를 제공할 수 있다.
+
+▶ 결론 : 필요한 경우 CharSequence를 해당 클래스로 변환하여 작업을 수행한 후, 필요에 따라 String으로 변환할 수 있다.
+
+
+
