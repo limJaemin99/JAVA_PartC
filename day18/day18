@@ -1,0 +1,73 @@
+day18
+
+Comparable, Comparator <다이어그램 있음>
+----------------------------------------------------------------------------
+
+
+# 익명클래스
+	- 익명클래스 anonymous class : 이름이 정해지지 않은 클래스
+	- 익명클래스는 객체를 사용해야 할 때, 클래스를 정의하면서 객체 생성을 동시에 한다.
+	- 추상 클래스와 인터페이스는 직접 객체를 생성하지 않고 메소드 오버라이딩으로 구현 클래스를 정의해야한다고 했다.
+	- 이때, 일회용으로 즉, 한번만 사용할 구현체라면 익명클래스를 사용하는것이 효율적이다.
+	- 실제로 자바 라이브러리에서 제공하는 기능을 사용할 때, 익명 클래스가 유용하게 쓰인다.
+	
+요약 : 한번만 쓰고 말거면 굳이 클래스 파일을 만들 필요가 없기때문에 익명클래스를 사용한다
+----------------------------------------------------------------------------
+<이 내용은 day17.text 에서도 작성함>
+# Comparable<T>
+- Comparable<T>는 compareTo를 사용하기 위해 implements 하여 사용하는 인터페이스이다.
+	● <T> 는  제너릭 타입으로 설정한다.
+     	ex) public class Member implements Comparable<Member>{ ... }
+
+- 고정된 필드로 compareTo를 미리 코드에 작성해야하며, 정렬 필드를 변경하려면 하드코딩으로 변경해줘야 한다.
+
+- 사용할 클래스에 implements 했다면 Comparable<Member> 인터페이스의 추상메소드를 정의해줘야한다.
+     	ex) public int compareTo(Member o){
+          		return this.name.compareTo(o.getName());	//name기준으로 sort할 경우
+          	}
+- this.name 과 o.getName의 위치를 바꾸면 내림차순
+
+- compareTo가 재정의된 클래스의 객체를 sort할 경우 무조건 compareTo에서 비교한 변수를 기준으로 오름/내림차순 정렬된다.
+		//comparator 인터페이스로 sort 실행 시점에서 필드를 결정할 수 있게 변경한다.
+
+
+- compareTo로 int 값을 비교할 경우 ▶ [값1].compareTo([값2]) : 값1-값2
+- compareTo로 String값을 비교할 경우 ▶ [값1].compareTo([값2]) : (사전에서의 순서를 기준으로) 값1-값2
+	※만약 compareTo로 String값을 비교하는데, 기준값에 비교대상이 포함되어있을 경우
+		▶ String str = "abcd";
+	  	  str.compareTo("a");  //3
+	   	 str.compareTo("ab") //2
+			...
+	위와 같이 기준값에 비교대상이 포함되어 있을 겨우 서로의 문자열 길이의 차이값을 리턴한다.
+----------------------------------------------------------------------------
+# Comparator
+- Comparator은 인터페이스의 익명내부구현 클래스이다.
+  사용하기 위해서는 익명/구현 클래스를 생성한 뒤 compare메소드를 구현(override)해줘야 한다.
+	● 익명 클래스를 사용한 방법
+	ex) Comparator<T> c = new Comparator<T>( ){
+	    	@Override
+		public int compare (T o1, T o2){
+			return o1.getString( ).compareTo(o2.getString( )); //get할 값의 타입이 String
+			return o1.getInt( ) - o2.getInt( ); //get할 값의 타입이 int	
+	     }
+	● 구현 클래스를 사용한 방법
+	    1) Comparator<T> 를 implements 하는 구현클래스를 생성한다.
+		ex) public ClassA implements Comparator<T>
+	    2) 구현 클래스 내부에서 compare(T o1, T o2){ return ; } 메소드를 구현(override)한다.
+	    3) 사용할 메인메소드에서 compare( ){ } 메소드를 사용한다.
+		- 사용 방법은 2가지가 있다.
+		1. Arrays.sort(배열객체명 , new 구현클래스명);	//sort 메소드 2번째 인자는 업캐스팅이다.
+		2. Arrays.sort(배열객체명, 
+			new Comparator<T>( ){
+				@Override
+				public int compare (T o1 , T o2) {
+					return o1.getInt( ) - o2.getInt( );
+				}
+			});  //sort 메소드 2번째 인자는 업캐스팅이다.
+			     //여기서는 익명클래스를 사용하여 메소드를 2번째 인자로 익명 구현한 것이다.
+			     //(Comparator 타입의 sort 메소드 2번째 인자를 익명 클래스 객체 생성으로 바로 지정)
+			     //★★★★★이 방식을 가장 많이 사용한다★★★★★
+
+
+
+
